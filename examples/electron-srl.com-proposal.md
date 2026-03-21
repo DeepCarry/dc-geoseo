@@ -310,6 +310,6 @@ Questa proposta è valida per **30 giorni** dalla data sopra indicata.
 
 ---
 
-*Questa proposta è stata preparata utilizzando gli strumenti di analisi GEO-SEO e riflette i risultati dell'audit di electron-srl.com condotto il 12 marzo 2026. Tutti i punteggi e le raccomandazioni sono basati sulle migliori pratiche attuali per la Generative Engine Optimization.*
+*Questa proposta è stata preparata utilizzando DeepCarry Beacon e riflette i risultati dell'audit di electron-srl.com condotto il 12 marzo 2026. Tutti i punteggi e le raccomandazioni sono basati sulle migliori pratiche attuali per la Generative Engine Optimization.*
 
 *Dati di supporto: Google Search Index, Facebook/electronsrl, CNOS-FAP, Energy-Xprt, RocketReach, Dun & Bradstreet, confronto competitor (Festo Didactic, Lucas-Nülle, National Instruments).*

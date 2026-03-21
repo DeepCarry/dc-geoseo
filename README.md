@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="GEO-SEO Claude/Codex Toolkit" width="900"/>
+  <img src="assets/banner.svg" alt="DeepCarry Beacon" width="900"/>
 </p>
 
 <p align="center">
-  <strong>GEO-first, SEO-supported.</strong> Dual-stack toolkit for Codex and Claude.
+  <strong>DeepCarry Beacon.</strong> AI Visibility Platform for Brands.
 </p>
 
 ---
@@ -28,8 +28,8 @@ Codex authentication uses the **official OpenAI flow**:
 ### Codex Mode (Recommended)
 
 ```bash
-git clone https://github.com/DeepCarry/geo-seo-claude.git
-cd geo-seo-claude
+git clone https://github.com/DeepCarry/deepcarry-beacon.git
+cd deepcarry-beacon
 ./install.sh          # defaults to --codex
 # or: ./install-codex.sh
 ```
@@ -41,6 +41,52 @@ geo doctor
 geo quick https://example.com
 geo audit https://example.com
 ```
+
+### Web Workspace
+
+The repo also includes a single-page GEO workspace built with Flask + HTMX:
+
+```bash
+pip install -r requirements.txt
+python3 scripts/webapp/app.py
+```
+
+Then open:
+
+```text
+http://localhost:5050
+```
+
+The workspace brings audit, reports, prospects, proposals, and compare into one UI.
+
+#### Language Toggle (ZH/EN)
+
+- Use the top-right language buttons (`中` / `EN`) to switch UI language.
+- Language choice is session-based and also applies to:
+  - right-side action/log copy
+  - prospect status labels
+  - proposal markdown preview/content
+
+#### UI Snapshot Examples
+
+Recent workspace screenshots are generated under:
+
+```text
+output/playwright/
+```
+
+Example files:
+
+- `output/playwright/tab-workspace.png`
+- `output/playwright/tab-audit.png`
+- `output/playwright/tab-reports.png`
+- `output/playwright/tab-prospects.png`
+- `output/playwright/tab-proposal.png`
+- `output/playwright/tab-compare.png`
+
+Preview:
+
+![GEO Workspace Preview](output/playwright/tab-workspace.png)
 
 ### Claude Mode (Legacy)
 

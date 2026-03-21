@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # ============================================================
-# GEO Codex Installer
-# Installs Python package + checks official Codex login flow
+# DeepCarry Beacon Codex Installer
+# Installs the Beacon package + checks official Codex login flow
 # ============================================================
 
 RED='\033[0;31m'

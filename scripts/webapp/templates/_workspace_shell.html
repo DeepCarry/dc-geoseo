@@ -1,0 +1,732 @@
+<div id="workspace-shell">
+  <div class="busy-bar"></div>
+
+  <header class="topbar panel">
+    <div class="topbar-brand">
+      <div class="eyebrow">{{ L('GEO 一体化工作台', 'GEO Unified Workspace') }}</div>
+      <div class="topbar-title">{{ L('GEO 运营工作台', 'GEO Operations Workspace') }}</div>
+    </div>
+    <div class="topbar-meta">
+      <div class="meta-pill">{{ L('当前时间', 'Now') }} <strong>{{ now }}</strong></div>
+      <div class="meta-pill">{{ L('当前 URL', 'Session URL') }} <strong>{{ current_url or '--' }}</strong></div>
+      <div class="meta-pill {{ 'is-ready' if env.ready else 'is-warning' }}">{{ L('环境就绪', 'Ready') if env.ready else L('需要配置', 'Needs setup') }}</div>
+      <div class="lang-group" role="group" aria-label="language switch">
+        <form class="lang-form" hx-post="/actions/lang" hx-target="#workspace-shell" hx-swap="outerHTML">
+          <input type="hidden" name="lang" value="zh">
+          <button class="lang-button {{ 'is-active' if current_lang == 'zh' else '' }}" type="submit">中</button>
+        </form>
+        <form class="lang-form" hx-post="/actions/lang" hx-target="#workspace-shell" hx-swap="outerHTML">
+          <input type="hidden" name="lang" value="en">
+          <button class="lang-button {{ 'is-active' if current_lang == 'en' else '' }}" type="submit">EN</button>
+        </form>
+      </div>
+      <form hx-post="/actions/view-mode" hx-target="#workspace-shell" hx-swap="outerHTML">
+        <input type="hidden" name="view_mode" value="{{ 'client' if view_mode == 'internal' else 'internal' }}">
+        <button class="ghost-button" type="submit">{{ L('切换到客户视图', 'Switch to Client View') if view_mode == 'internal' else L('切换到内部视图', 'Switch to Internal View') }}</button>
+      </form>
+    </div>
+  </header>
+
+  <div class="app-grid">
+    <aside class="nav-rail panel">
+      <div>
+        <div class="eyebrow">{{ L('导航', 'Navigation') }}</div>
+        <div class="section-title">{{ L('工作台地图', 'Workspace map') }}</div>
+      </div>
+      <div class="nav-list">
+        {% for key, label in tabs %}
+        <form hx-post="/actions/tab" hx-target="#workspace-shell" hx-swap="outerHTML">
+          <input type="hidden" name="tab" value="{{ key }}">
+          <button class="nav-button {{ 'is-active' if active_tab == key else '' }}" type="submit">{{ label }}</button>
+        </form>
+        {% endfor %}
+      </div>
+
+      <div class="nav-block">
+        <div class="eyebrow">{{ L('环境状态', 'Environment') }}</div>
+        <div class="status-stack">
+          <div class="status-card {{ 'is-ready' if env.installed else 'is-danger' }}">
+            <span>Codex CLI</span>
+            <strong>{{ L('已安装', 'Installed') if env.installed else L('未安装', 'Missing') }}</strong>
+          </div>
+          <div class="status-card {{ 'is-ready' if env.logged_in else 'is-warning' }}">
+            <span>{{ L('认证状态', 'Auth') }}</span>
+            <strong>{{ L('已登录', 'Logged in') if env.logged_in else L('需要登录', 'Login required') }}</strong>
+          </div>
+          {% if env.version %}
+          <div class="status-card">
+            <span>{{ L('版本', 'Version') }}</span>
+            <strong>{{ env.version }}</strong>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-stage">
+      {% if active_tab == 'workspace' %}
+      <section class="hero panel">
+        <div class="hero-copy">
+          <div class="eyebrow">{{ L('快速开始', 'Quick Start') }}</div>
+          <h1>{{ L('一次审计，串联报告、<br>线索与提案交付。', 'One audit flow from<br>analysis to delivery.') | safe }}</h1>
+          <p>{{ L('输入站点后，继续在同一页面完成报告导出、线索推进和阶段对比。', 'After scanning a site, stay in one place for reporting, pipeline follow-up, and progress comparison.') }}</p>
+        </div>
+        <form class="hero-form" hx-post="/actions/audit" hx-target="#workspace-shell" hx-swap="outerHTML">
+          <label class="field-label" for="url">{{ L('目标网址', 'Target URL') }}</label>
+          <input id="url" name="url" type="text" value="{{ current_url }}" placeholder="https://example.com" required>
+          <div class="button-row">
+            <button class="primary-button" type="submit">{{ L('开始快速审计', 'Run Quick Audit') }}</button>
+            <button class="ghost-button" type="button" hx-post="/actions/doctor" hx-target="#workspace-shell" hx-swap="outerHTML">{{ L('环境诊断', 'Doctor') }}</button>
+            <button class="ghost-button" type="button" hx-post="/actions/auth" hx-target="#workspace-shell" hx-swap="outerHTML">{{ L('检查登录', 'Check Auth') }}</button>
+          </div>
+          <div class="microcopy">{{ L('当前模式：', 'Current mode:') }}<strong>{{ L('内部操作视图', 'Internal operator view') if view_mode == 'internal' else L('客户展示视图', 'Client-safe view') }}</strong></div>
+        </form>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card panel">
+          <span>{{ L('线索数', 'Prospects') }}</span>
+          <strong>{{ prospect_stats.total }}</strong>
+          <small>{{ L('当前线索池总量', 'Total records in pipeline') }}</small>
+        </article>
+        <article class="stat-card panel">
+          <span>{{ L('已成交', 'Won') }}</span>
+          <strong>{{ prospect_stats.won }}</strong>
+          <small>{{ L('当前活跃 GEO 客户', 'Active GEO clients') }}</small>
+        </article>
+        <article class="stat-card panel">
+          <span>{{ L('提案池金额', 'Proposal Value') }}</span>
+          <strong>{{ prospect_stats.pipeline | money }}</strong>
+          <small>{{ L('潜在月度收入', 'Potential monthly pipeline') }}</small>
+        </article>
+        <article class="stat-card panel">
+          <span>{{ L('平均 GEO 分', 'Avg GEO Score') }}</span>
+          <strong>{{ prospect_stats.avg_score }}/100</strong>
+          <small>{{ L('覆盖所有线索记录', 'Across all stored prospects') }}</small>
+        </article>
+      </section>
+
+      <section class="content-grid two-up">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('最近运行', 'Recent Runs') }}</div>
+              <div class="section-title">{{ L('最新审计快照', 'Latest audit snapshots') }}</div>
+            </div>
+          </div>
+          {% if recent_runs %}
+          <div class="run-list">
+            {% for run in recent_runs[:3] %}
+            <form class="run-card" hx-post="/actions/select-run" hx-target="#workspace-shell" hx-swap="outerHTML">
+              <input type="hidden" name="path" value="{{ run.path }}">
+              <input type="hidden" name="tab" value="audit">
+              <button type="submit">
+                <div>
+                  <strong>{{ run.brand_name }}</strong>
+                  <div class="subtle">{{ run.url }}</div>
+                </div>
+                <div class="score-chip tier-{{ run.geo_score | score_tier }}">{{ run.geo_score }}/100</div>
+                <div class="subtle">{{ run.date or '--' }}</div>
+              </button>
+            </form>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="empty-state">{{ L('还没有审计快照。完成第一次审计后会显示在这里。', 'No audit snapshots yet. Your first successful audit will appear here.') }}</div>
+          {% endif %}
+        </article>
+
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('流程快捷入口', 'Pipeline Shortcuts') }}</div>
+              <div class="section-title">{{ L('拿到结果后直接进入下一步', 'Move fast after the first result') }}</div>
+            </div>
+          </div>
+          <div class="shortcut-grid">
+            {% for key, label in [('audit', L('查看审计结果', 'Inspect audit')), ('reports', L('生成与导出报告', 'Generate reports')), ('prospects', L('管理线索进展', 'Track prospect')), ('proposal', L('生成客户提案', 'Create proposal')), ('compare', L('复盘阶段变化', 'Review progress'))] %}
+            <form hx-post="/actions/tab" hx-target="#workspace-shell" hx-swap="outerHTML">
+              <input type="hidden" name="tab" value="{{ key }}">
+              <button class="shortcut-card" type="submit">
+                <strong>{{ label }}</strong>
+                <span>{{ L('进入该模块', 'Open module') }}</span>
+              </button>
+            </form>
+            {% endfor %}
+          </div>
+        </article>
+      </section>
+      {% endif %}
+
+      {% if active_tab == 'audit' %}
+      <section class="panel module-head">
+        <div>
+          <div class="eyebrow">{{ L('审计模块', 'Audit Module') }}</div>
+          <div class="section-title">{{ L('总览评分、平台表现与证据明细', 'Executive scoreboard and evidence stream') }}</div>
+        </div>
+        {% if audit %}
+        <div class="button-row">
+          <form hx-post="/actions/report" hx-target="#workspace-shell" hx-swap="outerHTML"><button class="ghost-button" type="submit">{{ L('生成报告', 'Generate Report') }}</button></form>
+          <form hx-post="/actions/pdf" hx-target="#workspace-shell" hx-swap="outerHTML"><button class="ghost-button" type="submit">{{ L('导出 PDF', 'Export PDF') }}</button></form>
+          <form hx-post="/actions/add-prospect" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <input type="hidden" name="monthly_value" value="5000">
+            <button class="primary-button" type="submit">{{ L('加入线索池', 'Add to Prospect') }}</button>
+          </form>
+        </div>
+        {% endif %}
+      </section>
+
+      {% if audit %}
+      <section class="stats-grid audit-stats">
+        <article class="stat-card panel spotlight">
+          <span>{{ L('GEO 总分', 'GEO Score') }}</span>
+          <strong>{{ audit.geo_score }}/100</strong>
+          <small>{{ audit.geo_score | score_label }}</small>
+        </article>
+          {% for label, key in [(L('AI 可引用性', 'AI Citability'),'ai_citability'),(L('技术评分', 'Technical'),'technical'),(L('内容 E-E-A-T', 'Content E-E-A-T'),'content_eeat'),(L('结构化数据', 'Schema'),'schema'),(L('平台优化', 'Platform Optimization'),'platform_optimization')] %}
+        <article class="stat-card panel">
+          <span>{{ label }}</span>
+          <strong>{{ audit.scores[key] }}/100</strong>
+          <small>{{ L('维度得分', 'Component score') }}</small>
+        </article>
+        {% endfor %}
+      </section>
+
+      <section class="content-grid two-up">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('平台就绪度', 'Platform Readiness') }}</div>
+              <div class="section-title">{{ L('当前站点在各平台的可见性表现', 'Where the current site is most visible') }}</div>
+            </div>
+          </div>
+          <div class="meter-list">
+            {% for platform, score in audit.platforms.items() %}
+            <div class="meter-row">
+              <div>
+                <strong>{{ platform }}</strong>
+                <div class="subtle">{{ L('当前就绪度估算', 'Current readiness estimate') }}</div>
+              </div>
+              <div class="meter-bar"><span style="width: {{ score }}%"></span></div>
+              <div class="score-chip tier-{{ score | score_tier }}">{{ score }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </article>
+
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('关键发现', 'Findings') }}</div>
+              <div class="section-title">{{ L('按优先级排序的问题与机会项', 'Prioritized blockers and opportunities') }}</div>
+            </div>
+          </div>
+          {% if audit.findings %}
+          <div class="finding-list">
+            {% for item in audit.findings %}
+            <div class="finding-card severity-{{ item.severity }}">
+              <div class="finding-top">
+                <span class="severity-pill severity-{{ item.severity }}">{{ item.severity | upper }}</span>
+                <strong>{{ item.title }}</strong>
+              </div>
+              <p>{{ item.description }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="empty-state">{{ L('本次审计未发现关键级问题。', 'No critical findings detected in this audit.') }}</div>
+          {% endif %}
+        </article>
+      </section>
+
+      <section class="content-grid two-up">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('快速收益项', 'Quick Wins') }}</div>
+              <div class="section-title">{{ L('优先执行可立即见效的动作', 'Immediate actions to unlock visibility') }}</div>
+            </div>
+          </div>
+          <div class="bullet-stack">
+            {% for item in audit.quick_wins %}
+            <div class="bullet-card">
+              <strong>{{ item.action }}</strong>
+              <span>{{ item.impact }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </article>
+
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('证据明细', 'Raw Evidence') }}</div>
+              <div class="section-title">{{ L('评分背后的结构化依据', 'Structured proof behind the score') }}</div>
+            </div>
+          </div>
+          <div class="bullet-stack">
+            <details class="evidence-card" open>
+              <summary>{{ L('robots 与爬虫访问状态', 'robots + crawler access') }}</summary>
+              <pre>{{ audit.crawler_access | pretty_json }}</pre>
+            </details>
+            {% if view_mode == 'internal' %}
+            <details class="evidence-card">
+              <summary>{{ L('页面技术原始数据', 'technical raw page data') }}</summary>
+              <pre>{{ audit.raw.page | pretty_json }}</pre>
+            </details>
+            <details class="evidence-card">
+              <summary>{{ L('schema / llms / citability 证据', 'schema / llms / citability evidence') }}</summary>
+              <pre>{{ {'llms': audit.raw.llms, 'citability': audit.raw.citability} | pretty_json }}</pre>
+            </details>
+            {% else %}
+            <div class="client-summary-card">
+              <strong>{{ L('客户展示视图已启用', 'Client-safe view enabled') }}</strong>
+              <span>{{ L('该模式会隐藏原始 JSON 与底层技术细节。', 'Raw JSON and low-level technical details are hidden in this mode.') }}</span>
+            </div>
+            {% endif %}
+          </div>
+        </article>
+      </section>
+      {% else %}
+      <div class="panel empty-state tall">{{ L('尚未选择审计结果。请先在工作区发起审计或加载历史快照。', 'No audit selected yet. Start from Workspace or open a saved run.') }}</div>
+      {% endif %}
+      {% endif %}
+
+      {% if active_tab == 'reports' %}
+      <section class="panel module-head">
+        <div>
+          <div class="eyebrow">{{ L('报告模块', 'Reports Module') }}</div>
+          <div class="section-title">{{ L('不离开当前页面即可产出可交付材料', 'Generate shareable assets without leaving the workspace') }}</div>
+        </div>
+        <div class="button-row">
+          <form hx-post="/actions/report" hx-target="#workspace-shell" hx-swap="outerHTML"><button class="primary-button" type="submit">{{ L('重新生成报告', 'Regenerate Report') }}</button></form>
+          <form hx-post="/actions/pdf" hx-target="#workspace-shell" hx-swap="outerHTML"><button class="ghost-button" type="submit">{{ L('生成 PDF', 'Generate PDF') }}</button></form>
+          <form hx-post="/actions/llms" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <button class="ghost-button" type="submit">{{ L('生成 llms.txt', 'Generate llms.txt') }}</button>
+          </form>
+          <form hx-post="/actions/llms" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <input type="hidden" name="full" value="on">
+            <button class="ghost-button" type="submit">{{ L('生成 llms-full.txt', 'Generate llms-full.txt') }}</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="content-grid reports-layout">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('输出产物', 'Outputs') }}</div>
+              <div class="section-title">{{ L('当前可交付文件', 'Current artifact bundle') }}</div>
+            </div>
+          </div>
+          <div class="artifact-stack">
+            {% if current_report_path %}
+            <a class="artifact-card" href="{{ current_report_path | download_href }}"><strong>{{ L('Markdown 报告', 'Markdown Report') }}</strong><span>{{ current_report_path | basename }}</span></a>
+            {% endif %}
+            {% if current_pdf_path %}
+            <a class="artifact-card" href="{{ current_pdf_path | download_href }}"><strong>{{ L('PDF 报告', 'PDF Report') }}</strong><span>{{ current_pdf_path | basename }}</span></a>
+            {% endif %}
+            {% if current_llms_path %}
+            <a class="artifact-card" href="{{ current_llms_path | download_href }}"><strong>{{ L('llms.txt 草稿', 'llms.txt Draft') }}</strong><span>{{ current_llms_path | basename }}</span></a>
+            {% endif %}
+            {% if not current_report_path and not current_pdf_path and not current_llms_path %}
+            <div class="empty-state">{{ L('请先执行审计，再生成报告和导出文件。', 'Run an audit first to unlock report generation.') }}</div>
+            {% endif %}
+          </div>
+
+          {% if view_mode == 'client' %}
+          <div class="client-summary-card mt-16">
+            <strong>{{ L('客户摘要模式', 'Client summary mode') }}</strong>
+            <span>{{ L('右侧预览可直接用于客户沟通，深层技术细节默认隐藏。', 'Use the preview for client communication while deep technical details stay hidden.') }}</span>
+          </div>
+          {% endif %}
+        </article>
+
+        <article class="panel content-card preview-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('预览', 'Preview') }}</div>
+              <div class="section-title">{{ L('Markdown 报告草稿', 'Markdown report draft') }}</div>
+            </div>
+            <button class="ghost-button" type="button" data-copy-target="#report-preview">{{ L('复制 Markdown', 'Copy Markdown') }}</button>
+          </div>
+          <pre id="report-preview">{{ report_preview or L('暂无报告预览，请先生成。', 'No report preview available yet.') }}</pre>
+        </article>
+      </section>
+      {% endif %}
+
+      {% if active_tab == 'prospects' %}
+      <section class="panel module-head">
+        <div>
+          <div class="eyebrow">{{ L('线索模块', 'Prospects Module') }}</div>
+          <div class="section-title">{{ L('把审计结果直接接入线索跟进流程', 'CRM-style tracking connected to the latest audit evidence') }}</div>
+        </div>
+      </section>
+
+      <section class="content-grid prospects-layout">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('线索池', 'Pipeline') }}</div>
+              <div class="section-title">{{ L('全部线索记录', 'All prospect records') }}</div>
+            </div>
+          </div>
+          {% if prospects %}
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>{{ L('公司', 'Company') }}</th>
+                  <th>{{ L('状态', 'Status') }}</th>
+                  <th>GEO</th>
+                  <th>{{ L('月度价值', 'Monthly Value') }}</th>
+                  <th>{{ L('更新时间', 'Updated') }}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in prospects %}
+                {% set meta = item.status | status_meta %}
+                <tr class="{{ 'is-selected' if current_prospect and current_prospect.id == item.id else '' }}">
+                  <td>{{ item.id }}</td>
+                  <td>
+                    <strong>{{ item.company }}</strong>
+                    <div class="subtle">{{ item.domain }}</div>
+                  </td>
+                  <td><span class="severity-pill tone-{{ meta.tone }}">{{ meta.label }}</span></td>
+                  <td><span class="score-chip tier-{{ item.geo_score | score_tier }}">{{ item.geo_score }}/100</span></td>
+                  <td>{{ item.monthly_value | money }}</td>
+                  <td>{{ item.updated_at or '--' }}</td>
+                  <td>
+                    <form hx-post="/actions/select-prospect" hx-target="#workspace-shell" hx-swap="outerHTML">
+                      <input type="hidden" name="prospect_id" value="{{ item.id }}">
+                      <input type="hidden" name="tab" value="prospects">
+                      <button class="table-button" type="submit">{{ L('打开', 'Open') }}</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="empty-state">{{ L('暂无线索。可在审计模块一键加入线索池。', 'No prospects yet. Add one directly from the audit module.') }}</div>
+          {% endif %}
+        </article>
+
+        <article class="panel content-card drawer-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('线索详情', 'Prospect Drawer') }}</div>
+              <div class="section-title">{{ L('当前选中记录', 'Selected record details') }}</div>
+            </div>
+          </div>
+          {% if current_prospect %}
+          {% set meta = current_prospect.status | status_meta %}
+          <div class="drawer-header">
+            <div>
+              <h2>{{ current_prospect.company }}</h2>
+              <div class="subtle">{{ current_prospect.domain }}</div>
+            </div>
+            <span class="severity-pill tone-{{ meta.tone }}">{{ meta.label }}</span>
+          </div>
+
+          <div class="drawer-grid">
+            <div class="drawer-metric">
+              <span>{{ L('GEO 分数', 'GEO Score') }}</span>
+              <strong>{{ current_prospect.geo_score }}/100</strong>
+            </div>
+            <div class="drawer-metric">
+              <span>{{ L('审计日期', 'Audit Date') }}</span>
+              <strong>{{ current_prospect.audit_date or '--' }}</strong>
+            </div>
+          </div>
+
+          <form class="inline-form" hx-post="/actions/prospect/status" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <input type="hidden" name="prospect_id" value="{{ current_prospect.id }}">
+            <label>
+              <span>{{ L('状态', 'Status') }}</span>
+              <select name="status">
+                {% for status in statuses %}
+                <option value="{{ status }}" {% if current_prospect.status == status %}selected{% endif %}>{{ status_meta[status].label }}</option>
+                {% endfor %}
+              </select>
+            </label>
+            <button class="ghost-button" type="submit">{{ L('更新状态', 'Update') }}</button>
+          </form>
+
+          <form class="inline-form" hx-post="/actions/prospect/value" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <input type="hidden" name="prospect_id" value="{{ current_prospect.id }}">
+            <label>
+              <span>{{ L('月度价值', 'Monthly Value') }}</span>
+              <input type="number" name="monthly_value" value="{{ current_prospect.monthly_value or 0 }}" min="0" step="100">
+            </label>
+            <button class="ghost-button" type="submit">{{ L('保存金额', 'Save Value') }}</button>
+          </form>
+
+          <div class="artifact-stack compact">
+            {% if current_prospect.audit_file %}
+            <a class="artifact-card" href="{{ current_prospect.audit_file | download_href or '#' }}"><strong>{{ L('审计文件', 'Audit file') }}</strong><span>{{ current_prospect.audit_file | basename }}</span></a>
+            {% endif %}
+            {% if current_prospect.proposal_file %}
+            <a class="artifact-card" href="{{ current_prospect.proposal_file | download_href or '#' }}"><strong>{{ L('提案文件', 'Proposal file') }}</strong><span>{{ current_prospect.proposal_file | basename }}</span></a>
+            {% endif %}
+          </div>
+
+          <form class="note-form" hx-post="/actions/prospect/note" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <input type="hidden" name="prospect_id" value="{{ current_prospect.id }}">
+            <label class="field-label" for="prospect-note">{{ L('跟进备注', 'Notes') }}</label>
+            <textarea id="prospect-note" name="text" placeholder="{{ L('填写下一步动作、异议点或跟进安排', 'Add next step, objection, or follow-up note') }}"></textarea>
+            <button class="primary-button" type="submit">{{ L('添加备注', 'Add Note') }}</button>
+          </form>
+
+          <div class="note-timeline">
+            {% for note in (current_prospect.notes or []) | reverse %}
+            <article class="note-card">
+              <div class="subtle">{{ note.date | datetime_short }}</div>
+              <p>{{ note.text }}</p>
+            </article>
+            {% else %}
+            <div class="empty-state">{{ L('该线索暂无备注。', 'No notes yet for this prospect.') }}</div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="empty-state">{{ L('请在左侧表格选择一个线索，查看详细信息。', 'Select a prospect from the table to open its detail drawer.') }}</div>
+          {% endif %}
+        </article>
+      </section>
+      {% endif %}
+
+      {% if active_tab == 'proposal' %}
+      <section class="panel module-head">
+        <div>
+          <div class="eyebrow">{{ L('提案模块', 'Proposal Module') }}</div>
+          <div class="section-title">{{ L('将当前审计或已选线索转为客户提案', 'Turn the current audit or selected prospect into a client-facing proposal') }}</div>
+        </div>
+      </section>
+
+      <section class="content-grid proposal-layout">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('参数设置', 'Setup') }}</div>
+              <div class="section-title">{{ L('选择线索并设定商务信息', 'Prospect selection and commercial context') }}</div>
+            </div>
+          </div>
+          <form class="stack-form" hx-post="/actions/proposal" hx-target="#workspace-shell" hx-swap="outerHTML">
+            {% if current_prospect %}
+            <input type="hidden" name="prospect_id" value="{{ current_prospect.id }}">
+            {% endif %}
+            <label>
+              <span>{{ L('当前线索', 'Selected Prospect') }}</span>
+              <input type="text" value="{{ current_prospect.company if current_prospect else (audit.brand_name if audit else L('基于当前审计的临时提案', 'Ad-hoc proposal from current audit')) }}" readonly>
+            </label>
+            <label>
+              <span>{{ L('月度价值', 'Monthly Value') }}</span>
+              <input type="number" name="monthly_value" value="{{ current_prospect.monthly_value if current_prospect else 5000 }}" min="0" step="100">
+            </label>
+            <button class="primary-button" type="submit">{{ L('生成提案', 'Generate Proposal') }}</button>
+          </form>
+        </article>
+
+        <article class="panel content-card preview-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('提案预览', 'Preview') }}</div>
+              <div class="section-title">{{ L('Markdown 草稿', 'Proposal markdown draft') }}</div>
+            </div>
+            <button class="ghost-button" type="button" data-copy-target="#proposal-preview">{{ L('复制 Markdown', 'Copy Markdown') }}</button>
+          </div>
+          <pre id="proposal-preview">{{ proposal_preview or L('请先生成提案后再查看预览。', 'Generate a proposal to preview it here.') }}</pre>
+        </article>
+
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('商务建议', 'Commercial Notes') }}</div>
+              <div class="section-title">{{ L('建议交付节奏', 'Suggested packaging language') }}</div>
+            </div>
+          </div>
+          <div class="bullet-stack">
+            <div class="bullet-card"><strong>{{ L('第 1 个月', 'Month 1') }}</strong><span>{{ L('修复 crawler 可访问性、结构化数据与 llms.txt 基础能力。', 'Fix crawler access, structured data, and llms.txt visibility foundations.') }}</span></div>
+            <div class="bullet-card"><strong>{{ L('第 2-3 个月', 'Month 2-3') }}</strong><span>{{ L('重写可引用内容块，提升重点页面的 E-E-A-T 信号。', 'Rewrite citation-ready blocks and improve E-E-A-T signals on priority pages.') }}</span></div>
+            <div class="bullet-card"><strong>{{ L('第 4-6 个月', 'Month 4-6') }}</strong><span>{{ L('增强品牌权威资产、原创证据与平台适配表现。', 'Strengthen authority, original proof, and platform-specific readiness.') }}</span></div>
+          </div>
+        </article>
+      </section>
+      {% endif %}
+
+      {% if active_tab == 'compare' %}
+      <section class="panel module-head">
+        <div>
+          <div class="eyebrow">{{ L('对比模块', 'Compare Module') }}</div>
+          <div class="section-title">{{ L('基于两次审计快照衡量阶段变化', 'Measure score movement between two saved audit snapshots') }}</div>
+        </div>
+      </section>
+
+      <section class="content-grid compare-layout">
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('快照选择', 'Snapshot Picker') }}</div>
+              <div class="section-title">{{ L('选择基线与当前审计', 'Baseline and current audit selection') }}</div>
+            </div>
+          </div>
+          <form class="stack-form" hx-post="/actions/compare" hx-target="#workspace-shell" hx-swap="outerHTML">
+            <label>
+              <span>{{ L('基线审计', 'Baseline Audit') }}</span>
+              <select name="baseline_path" required>
+                <option value="">{{ L('请选择基线快照', 'Select baseline') }}</option>
+                {% for run in recent_runs %}
+                <option value="{{ run.path }}" {% if compare_baseline_path == run.path %}selected{% endif %}>{{ run.date }} · {{ run.brand_name }} · {{ run.geo_score }}/100</option>
+                {% endfor %}
+              </select>
+            </label>
+            <label>
+              <span>{{ L('当前审计', 'Current Audit') }}</span>
+              <select name="current_path" required>
+                <option value="">{{ L('请选择当前快照', 'Select current') }}</option>
+                {% for run in recent_runs %}
+                <option value="{{ run.path }}" {% if compare_current_path == run.path %}selected{% endif %}>{{ run.date }} · {{ run.brand_name }} · {{ run.geo_score }}/100</option>
+                {% endfor %}
+              </select>
+            </label>
+            <button class="primary-button" type="submit">{{ L('生成对比报告', 'Generate Comparison') }}</button>
+          </form>
+        </article>
+
+        <article class="panel content-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('分数变化', 'Score Movement') }}</div>
+              <div class="section-title">{{ L('维度级增减情况', 'Category-level deltas') }}</div>
+            </div>
+          </div>
+          {% if compare_baseline and compare_current %}
+          <div class="drawer-grid compare-summary-grid">
+            <div class="drawer-metric"><span>{{ L('基线', 'Baseline') }}</span><strong>{{ compare_baseline.geo_score }}/100</strong></div>
+            <div class="drawer-metric"><span>{{ L('当前', 'Current') }}</span><strong>{{ compare_current.geo_score }}/100</strong></div>
+            <div class="drawer-metric"><span>{{ L('变化', 'Delta') }}</span><strong>{{ compare_current.geo_score - compare_baseline.geo_score }}</strong></div>
+          </div>
+          <div class="meter-list compact">
+            {% for item in compare_score_changes %}
+            <div class="delta-row">
+              <div>
+                <strong>{{ item.label }}</strong>
+                <div class="subtle">{{ item.before }} -> {{ item.after }}</div>
+              </div>
+              <div class="delta-pill {{ 'is-up' if item.delta > 0 else 'is-down' if item.delta < 0 else '' }}">{{ '%+d' % item.delta }}</div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="empty-state">{{ L('请选择两次审计快照后再生成对比结果。', 'Pick two audits to unlock compare output.') }}</div>
+          {% endif %}
+        </article>
+
+        <article class="panel content-card preview-card">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">{{ L('趋势摘要', 'Trend Summary') }}</div>
+              <div class="section-title">{{ L('月度进展草稿', 'Monthly progress report draft') }}</div>
+            </div>
+            <button class="ghost-button" type="button" data-copy-target="#compare-preview">{{ L('复制 Markdown', 'Copy Markdown') }}</button>
+          </div>
+          <pre id="compare-preview">{{ compare_preview or L('请先生成对比内容后查看。', 'Generate a comparison to preview it here.') }}</pre>
+          {% if compare_baseline and compare_current %}
+          <div class="compare-findings">
+            <div>
+              <strong>{{ L('已解决问题', 'Resolved findings') }}</strong>
+              <ul>
+                {% for item in compare_finding_diff.resolved %}<li>{{ item }}</li>{% else %}<li>{{ L('暂无已解决项', 'None resolved yet') }}</li>{% endfor %}
+              </ul>
+            </div>
+            <div>
+              <strong>{{ L('新增问题', 'New findings') }}</strong>
+              <ul>
+                {% for item in compare_finding_diff.new %}<li>{{ item }}</li>{% else %}<li>{{ L('暂无新增项', 'No new findings') }}</li>{% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </article>
+      </section>
+      {% endif %}
+    </main>
+
+    <aside class="context-rail panel">
+      <section>
+        <div class="eyebrow">{{ L('当前上下文', 'Current Context') }}</div>
+        <div class="context-card">
+          <span>URL</span>
+          <strong>{{ current_url or '--' }}</strong>
+        </div>
+        <div class="context-card">
+          <span>{{ L('线索', 'Prospect') }}</span>
+          <strong>{{ current_prospect.company if current_prospect else '--' }}</strong>
+        </div>
+        <div class="context-card">
+          <span>{{ L('视图', 'View') }}</span>
+          <strong>{{ L('内部视图', 'Internal') if view_mode == 'internal' else L('客户视图', 'Client') }}</strong>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head compact-head">
+          <div>
+            <div class="eyebrow">{{ L('建议动作队列', 'Action Queue') }}</div>
+            <div class="section-title">{{ L('下一步推荐', 'Suggested next moves') }}</div>
+          </div>
+        </div>
+        <div class="queue-list">
+          {% for item in action_queue %}
+          <article class="queue-card">
+            <strong>{{ item.title }}</strong>
+            <p>{{ item.detail }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head compact-head">
+          <div>
+            <div class="eyebrow">{{ L('最近产物', 'Recent Artifacts') }}</div>
+            <div class="section-title">{{ L('可直接分享的文件', 'Files ready to share') }}</div>
+          </div>
+        </div>
+        <div class="artifact-stack compact">
+          {% for item in artifacts %}
+          <a class="artifact-card" href="{{ item.path | download_href or '#' }}">
+            <strong>{{ item.kind | upper }}</strong>
+            <span>{{ item.name }}</span>
+            <small>{{ item.updated_at }}</small>
+          </a>
+          {% else %}
+          <div class="empty-state">{{ L('还没有生成文件。', 'No generated files yet.') }}</div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head compact-head">
+          <div>
+            <div class="eyebrow">{{ L('运行日志', 'Run Log') }}</div>
+            <div class="section-title">{{ L('最近事件', 'Latest events') }}</div>
+          </div>
+        </div>
+        <div class="log-list">
+          {% for entry in logs %}
+          <article class="log-card level-{{ entry.level }}">
+            <div class="log-top"><strong>{{ entry.ts }}</strong><span>{{ entry.level }}</span></div>
+            <p>{{ entry.message }}</p>
+          </article>
+          {% else %}
+          <div class="empty-state">{{ L('暂无事件。可先做环境诊断或发起新审计。', 'No events yet. Start with Doctor or a new audit.') }}</div>
+          {% endfor %}
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>

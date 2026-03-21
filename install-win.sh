@@ -2,11 +2,11 @@
 set -euo pipefail
 
 # ============================================================
-# GEO-SEO Claude Code Skill Installer — Windows (Git Bash)
+# DeepCarry Beacon Claude Code Skill Installer — Windows (Git Bash)
 # Run this script from Git Bash, NOT PowerShell or CMD.
 # ============================================================
 
-REPO_URL="https://github.com/zubair-trabzada/geo-seo-claude.git"
+REPO_URL="https://github.com/DeepCarry/deepcarry-beacon.git"
 CLAUDE_DIR="${HOME}/.claude"
 SKILLS_DIR="${CLAUDE_DIR}/skills"
 AGENTS_DIR="${CLAUDE_DIR}/agents"
@@ -29,8 +29,8 @@ NC='\033[0m' # No Color
 print_header() {
     echo ""
     echo -e "${BLUE}+------------------------------------------+${NC}"
-    echo -e "${BLUE}|   GEO-SEO Claude Code Skill Installer    |${NC}"
-    echo -e "${BLUE}|   GEO-First AI Search Optimization       |${NC}"
+    echo -e "${BLUE}|  DeepCarry Beacon Skill Installer        |${NC}"
+    echo -e "${BLUE}|  AI Visibility for Brands                |${NC}"
     echo -e "${BLUE}|   Windows / Git Bash Edition             |${NC}"
     echo -e "${BLUE}+------------------------------------------+${NC}"
     echo ""
@@ -143,7 +143,7 @@ main() {
     print_success "Directory structure created at: $CLAUDE_DIR"
 
     # ---- Clone or Copy Repository ----
-    print_info "Fetching GEO-SEO skill files..."
+    print_info "Fetching DeepCarry Beacon skill files..."
 
     SCRIPT_DIR=""
     if [ -n "${BASH_SOURCE[0]:-}" ] && [ "${BASH_SOURCE[0]}" != "bash" ]; then
@@ -307,7 +307,7 @@ main() {
     echo "    /geo report <url>     Client-ready GEO report"
     echo "    /geo report-pdf       Generate PDF report from audit data"
     echo ""
-    echo "  Documentation: https://github.com/zubair-trabzada/geo-seo-claude"
+    echo "  Documentation: https://github.com/DeepCarry/deepcarry-beacon"
     echo ""
 }
 

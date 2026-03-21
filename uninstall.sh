@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ============================================================
-# GEO-SEO Claude Code Skill Uninstaller
+# DeepCarry Beacon Claude Code Skill Uninstaller
 # ============================================================
 
 CLAUDE_DIR="${HOME}/.claude"
@@ -16,7 +16,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 echo ""
-echo -e "${YELLOW}GEO-SEO Claude Code Skill Uninstaller${NC}"
+echo -e "${YELLOW}DeepCarry Beacon Claude Code Skill Uninstaller${NC}"
 echo ""
 echo "This will remove the following:"
 echo ""
@@ -66,7 +66,7 @@ for agent_file in "$AGENTS_DIR"/geo-*.md; do
 done
 
 echo ""
-echo -e "${GREEN}GEO-SEO skill has been uninstalled.${NC}"
+echo -e "${GREEN}DeepCarry Beacon skill has been uninstalled.${NC}"
 echo ""
 echo "Note: Python dependencies were not removed."
 echo "To remove them manually:"

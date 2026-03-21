@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "geo-seo-claude"
+name = "deepcarry-beacon"
 version = "2.0.0"
-description = "Dual-stack GEO toolkit for Codex and Claude"
+description = "DeepCarry Beacon - AI visibility platform for brands"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [

@@ -327,24 +327,50 @@ def find_prospect(items: list[dict[str, Any]], key: str) -> dict[str, Any] | Non
     return None
 
 
-def generate_proposal_md(prospect: dict) -> str:
+def generate_proposal_md(prospect: dict, lang: str = "zh") -> str:
     company = prospect.get("company") or prospect.get("domain")
     score = prospect.get("geo_score", 0)
     mrr = prospect.get("monthly_value", 5000)
-    return f"""# Proposta GEO — {company}
+    if lang == "en":
+        return f"""# GEO Growth Proposal — {company}
 
 ## Executive Summary
-{company} attualmente ha GEO score **{score}/100**. Proponiamo un percorso in 6 mesi per aumentare visibilità su ChatGPT, Gemini, Perplexity e Bing Copilot.
+{company} currently holds a GEO readiness score of **{score}/100**. This proposal outlines a six-month engagement focused on improving discoverability across ChatGPT, Gemini, Perplexity, Bing Copilot, and Google AI experiences.
 
-## Offerta
-- Piano consigliato: Premium
-- Valore mensile: €{mrr}
-- Durata: 12 mesi
+## Recommended Engagement
+- Recommended plan: GEO Growth Retainer
+- Monthly investment: EUR {mrr}
+- Initial term: 6 months
 
-## Roadmap
-1. Mese 1: crawler access, schema, llms.txt
-2. Mese 2-3: citability rewrite e E-E-A-T
-3. Mese 4-6: authority building e platform optimization
+## Delivery Roadmap
+1. Month 1: unblock crawler access, strengthen schema coverage, and publish llms.txt guidance
+2. Month 2-3: rewrite priority pages into citation-ready blocks and improve E-E-A-T signals
+3. Month 4-6: expand authority assets, original proof, and platform-specific optimization
+
+## Expected Outcomes
+- Stronger visibility in AI-generated answers
+- Better structured content for citation and retrieval
+- Clearer monthly reporting on GEO score movement and execution progress
+"""
+    return f"""# GEO 增长提案 — {company}
+
+## 执行摘要
+{company} 当前 GEO 就绪度为 **{score}/100**。本提案建议以 6 个月为周期，系统提升在 ChatGPT、Gemini、Perplexity、Bing Copilot 与 Google AI 场景下的可见度与引用机会。
+
+## 建议合作方式
+- 推荐方案：GEO 增长顾问
+- 月度投入：EUR {mrr}
+- 建议周期：6 个月
+
+## 交付路线图
+1. 第 1 个月：打通 crawler 可访问性、补齐结构化数据、发布 llms.txt
+2. 第 2-3 个月：重写重点页面为可引用内容块，提升 E-E-A-T 信号
+3. 第 4-6 个月：扩展品牌权威资产、原创证据与平台专项优化
+
+## 预期结果
+- 提升 AI 回答场景中的品牌可见度
+- 提高页面被模型检索与引用的概率
+- 建立可持续的月度 GEO 复盘与改进机制
 """
 
 

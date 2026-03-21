@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GEO-SEO CRM Dashboard — CLI
+DeepCarry Beacon CRM Dashboard — CLI
 Visualizza il CRM dei prospect con rich.
 
 Usage:
@@ -295,7 +295,7 @@ def view_pipeline(prospects: list[dict]):
 
 # ── Main ───────────────────────────────────────────────────────────────
 def main():
-    parser = argparse.ArgumentParser(description="GEO-SEO CRM Dashboard")
+    parser = argparse.ArgumentParser(description="DeepCarry Beacon CRM Dashboard")
     parser.add_argument("--prospect", "-p", help="Show detail for a prospect ID")
     parser.add_argument("--pipeline", action="store_true", help="Show pipeline view")
     args = parser.parse_args()
@@ -309,7 +309,7 @@ def main():
     console.print()
     console.print(
         Panel.fit(
-            f"[bold bright_white]GEO-SEO CRM[/bold bright_white]  [dim]—  {now}[/dim]",
+            f"[bold bright_white]DeepCarry Beacon CRM[/bold bright_white]  [dim]—  {now}[/dim]",
             border_style="bright_blue",
             padding=(0, 2),
         )
