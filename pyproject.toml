@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geo-seo-claude"
+version = "2.0.0"
+description = "Dual-stack GEO toolkit for Codex and Claude"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "beautifulsoup4>=4.12.0,<5.0.0",
+  "requests>=2.32.4,<3.0.0",
+  "lxml>=6.0.2,<7.0.0",
+  "playwright>=1.56.0,<2.0.0",
+  "Pillow>=11.0.0,<13.0.0",
+  "urllib3>=2.6.3,<3.0.0",
+  "validators>=0.22.0,<1.0.0",
+  "reportlab>=4.4.0,<5.0.0",
+  "flask>=3.0.0,<4.0.0",
+  "rich>=13.0.0,<15.0.0"
+]
+
+[project.scripts]
+geo = "geo.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

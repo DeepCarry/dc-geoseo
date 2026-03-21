@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -e .
+
+      - name: Static compile check
+        run: |
+          PYTHONPATH=src python -m py_compile src/geo/*.py scripts/*.py scripts/webapp/app.py
+
+      - name: CLI command surface check
+        run: |
+          geo --version
+          geo doctor --json
+          geo auth --json
+          for cmd in audit quick citability crawlers llmstxt brands platforms schema technical content report report-pdf prospect proposal compare auth doctor; do
+            python -m geo.cli "$cmd" --help >/dev/null
+          done
+
+      - name: Smoke (network)
+        if: matrix.python-version == '3.11'
+        run: |
+          geo quick https://example.com --json > /tmp/geo_quick_ci.json
+          geo audit https://example.com --json > /tmp/geo_audit_ci.json
+          geo report-pdf /tmp/geo_audit_ci.json --output /tmp/GEO-REPORT-ci.pdf --json > /tmp/geo_pdf_ci.json
+          geo compare /tmp/geo_audit_ci.json /tmp/geo_audit_ci.json >/tmp/geo_compare_ci.txt
+          test -s /tmp/geo_quick_ci.json
+          test -s /tmp/geo_audit_ci.json
+          test -f /tmp/GEO-REPORT-ci.pdf
+          test -s /tmp/geo_compare_ci.txt
