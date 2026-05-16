@@ -1,0 +1,146 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: GEO 一体化工作台
+      - generic [ref=e6]: GEO 运营工作台
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - text: 当前时间
+        - strong [ref=e9]: 2026-03-21 21:50
+      - generic [ref=e10]:
+        - text: 当前 URL
+        - strong [ref=e11]: "--"
+      - generic [ref=e12]: 需要配置
+      - group "language switch" [ref=e13]:
+        - button "中" [ref=e15] [cursor=pointer]
+        - button "EN" [ref=e17] [cursor=pointer]
+      - button "切换到客户视图" [ref=e19] [cursor=pointer]
+  - generic [ref=e20]:
+    - complementary [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: 导航
+        - generic [ref=e24]: 工作台地图
+      - generic [ref=e25]:
+        - button "工作区" [ref=e27] [cursor=pointer]
+        - button "审计" [ref=e29] [cursor=pointer]
+        - button "报告" [ref=e31] [cursor=pointer]
+        - button "线索" [ref=e33] [cursor=pointer]
+        - button "提案" [ref=e35] [cursor=pointer]
+        - button "对比" [ref=e37] [cursor=pointer]
+      - generic [ref=e38]:
+        - generic [ref=e39]: 环境状态
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]: Codex CLI
+            - strong [ref=e43]: 已安装
+          - generic [ref=e44]:
+            - generic [ref=e45]: 认证状态
+            - strong [ref=e46]: 需要登录
+          - generic [ref=e47]:
+            - generic [ref=e48]: 版本
+            - strong [ref=e49]: codex-cli 0.116.0
+    - main [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]: 快速开始
+          - heading "一次审计，串联 报告、线索与提案交付。" [level=1] [ref=e54]:
+            - text: 一次审计，串联
+            - text: 报告、线索与提案交付。
+          - paragraph [ref=e55]: 输入站点后，继续在同一页面完成报告导出、线索推进和阶段对比。
+        - generic [ref=e56]:
+          - generic [ref=e57]: 目标网址
+          - textbox "目标网址" [ref=e58]:
+            - /placeholder: https://example.com
+          - generic [ref=e59]:
+            - button "开始快速审计" [ref=e60] [cursor=pointer]
+            - button "环境诊断" [ref=e61] [cursor=pointer]
+            - button "检查登录" [ref=e62] [cursor=pointer]
+          - generic [ref=e63]:
+            - text: 当前模式：
+            - strong [ref=e64]: 内部操作视图
+      - generic [ref=e65]:
+        - article [ref=e66]:
+          - generic [ref=e67]: 线索数
+          - strong [ref=e68]: "2"
+          - generic [ref=e69]: 当前线索池总量
+        - article [ref=e70]:
+          - generic [ref=e71]: 已成交
+          - strong [ref=e72]: "0"
+          - generic [ref=e73]: 当前活跃 GEO 客户
+        - article [ref=e74]:
+          - generic [ref=e75]: 提案池金额
+          - strong [ref=e76]: "--"
+          - generic [ref=e77]: 潜在月度收入
+        - article [ref=e78]:
+          - generic [ref=e79]: 平均 GEO 分
+          - strong [ref=e80]: 0/100
+          - generic [ref=e81]: 覆盖所有线索记录
+      - generic [ref=e82]:
+        - article [ref=e83]:
+          - generic [ref=e85]:
+            - generic [ref=e86]: 最近运行
+            - generic [ref=e87]: 最新审计快照
+          - generic [ref=e88]: 还没有审计快照。完成第一次审计后会显示在这里。
+        - article [ref=e89]:
+          - generic [ref=e91]:
+            - generic [ref=e92]: 流程快捷入口
+            - generic [ref=e93]: 拿到结果后直接进入下一步
+          - generic [ref=e94]:
+            - button "查看审计结果 进入该模块" [ref=e96] [cursor=pointer]:
+              - strong [ref=e97]: 查看审计结果
+              - generic [ref=e98]: 进入该模块
+            - button "生成与导出报告 进入该模块" [ref=e100] [cursor=pointer]:
+              - strong [ref=e101]: 生成与导出报告
+              - generic [ref=e102]: 进入该模块
+            - button "管理线索进展 进入该模块" [ref=e104] [cursor=pointer]:
+              - strong [ref=e105]: 管理线索进展
+              - generic [ref=e106]: 进入该模块
+            - button "生成客户提案 进入该模块" [ref=e108] [cursor=pointer]:
+              - strong [ref=e109]: 生成客户提案
+              - generic [ref=e110]: 进入该模块
+            - button "复盘阶段变化 进入该模块" [ref=e112] [cursor=pointer]:
+              - strong [ref=e113]: 复盘阶段变化
+              - generic [ref=e114]: 进入该模块
+    - complementary [ref=e115]:
+      - generic [ref=e116]:
+        - generic [ref=e117]: 当前上下文
+        - generic [ref=e118]:
+          - generic [ref=e119]: URL
+          - strong [ref=e120]: "--"
+        - generic [ref=e121]:
+          - generic [ref=e122]: 线索
+          - strong [ref=e123]: "--"
+        - generic [ref=e124]:
+          - generic [ref=e125]: 视图
+          - strong [ref=e126]: 内部视图
+      - generic [ref=e127]:
+        - generic [ref=e129]:
+          - generic [ref=e130]: 建议动作队列
+          - generic [ref=e131]: 下一步推荐
+        - generic [ref=e132]:
+          - article [ref=e133]:
+            - strong [ref=e134]: 先完成首次审计
+            - paragraph [ref=e135]: 先输入一个域名，才能解锁报告、提案和对比功能。
+          - article [ref=e136]:
+            - strong [ref=e137]: 先检查环境状态
+            - paragraph [ref=e138]: 在客户演示前先跑环境诊断和登录检查，避免流程中断。
+      - generic [ref=e139]:
+        - generic [ref=e141]:
+          - generic [ref=e142]: 最近产物
+          - generic [ref=e143]: 可直接分享的文件
+        - generic [ref=e144]:
+          - link "REPORT example.com-monthly-2026-03-20.md 2026-03-20 17:02" [ref=e145] [cursor=pointer]:
+            - /url: /downloads/reports/example.com-monthly-2026-03-20.md
+            - strong [ref=e146]: REPORT
+            - generic [ref=e147]: example.com-monthly-2026-03-20.md
+            - generic [ref=e148]: 2026-03-20 17:02
+          - link "PROPOSAL example.com-proposal-2026-03-20.md 2026-03-20 17:02" [ref=e149] [cursor=pointer]:
+            - /url: /downloads/proposals/example.com-proposal-2026-03-20.md
+            - strong [ref=e150]: PROPOSAL
+            - generic [ref=e151]: example.com-proposal-2026-03-20.md
+            - generic [ref=e152]: 2026-03-20 17:02
+      - generic [ref=e153]:
+        - generic [ref=e155]:
+          - generic [ref=e156]: 运行日志
+          - generic [ref=e157]: 最近事件
+        - generic [ref=e159]: 暂无事件。可先做环境诊断或发起新审计。

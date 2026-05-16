@@ -1,0 +1,104 @@
+- generic [ref=e249]:
+  - banner [ref=e250]:
+    - generic [ref=e251]:
+      - generic [ref=e252]: GEO 一体化工作台
+      - generic [ref=e253]: 单页完成审计、报告、线索、提案与对比复盘
+    - generic [ref=e254]:
+      - generic [ref=e255]:
+        - text: 当前时间
+        - strong [ref=e256]: 2026-03-21 20:54
+      - generic [ref=e257]:
+        - text: 当前 URL
+        - strong [ref=e258]: "--"
+      - generic [ref=e259]: 需要配置
+      - button "切换到客户视图" [ref=e261] [cursor=pointer]
+  - generic [ref=e262]:
+    - complementary [ref=e263]:
+      - generic [ref=e264]:
+        - generic [ref=e265]: 导航
+        - generic [ref=e266]: 工作台地图
+      - generic [ref=e267]:
+        - button "工作区" [ref=e269] [cursor=pointer]
+        - button "审计" [ref=e271] [cursor=pointer]
+        - button "报告" [ref=e273] [cursor=pointer]
+        - button "线索" [ref=e275] [cursor=pointer]
+        - button "提案" [ref=e277] [cursor=pointer]
+        - button "对比" [ref=e279] [cursor=pointer]
+      - generic [ref=e280]:
+        - generic [ref=e281]: 环境状态
+        - generic [ref=e282]:
+          - generic [ref=e283]:
+            - generic [ref=e284]: Codex CLI
+            - strong [ref=e285]: 已安装
+          - generic [ref=e286]:
+            - generic [ref=e287]: 认证状态
+            - strong [ref=e288]: 需要登录
+          - generic [ref=e289]:
+            - generic [ref=e290]: 版本
+            - strong [ref=e291]: codex-cli 0.116.0
+    - main [ref=e292]:
+      - generic [ref=e293]:
+        - generic [ref=e294]:
+          - generic [ref=e295]: 报告模块
+          - generic [ref=e296]: 不离开当前页面即可产出可交付材料
+        - generic [ref=e297]:
+          - button "重新生成报告" [ref=e299] [cursor=pointer]
+          - button "生成 PDF" [ref=e301] [cursor=pointer]
+          - button "生成 llms.txt" [ref=e303] [cursor=pointer]
+          - button "生成 llms-full.txt" [ref=e305] [cursor=pointer]
+      - generic [ref=e306]:
+        - article [ref=e307]:
+          - generic [ref=e309]:
+            - generic [ref=e310]: 输出产物
+            - generic [ref=e311]: 当前可交付文件
+          - generic [ref=e313]: 请先执行审计，再生成报告和导出文件。
+        - article [ref=e314]:
+          - generic [ref=e315]:
+            - generic [ref=e316]:
+              - generic [ref=e317]: 预览
+              - generic [ref=e318]: Markdown 报告草稿
+            - button "复制 Markdown" [ref=e319] [cursor=pointer]
+          - generic [ref=e320]: 暂无报告预览，请先生成。
+    - complementary [ref=e321]:
+      - generic [ref=e322]:
+        - generic [ref=e323]: 当前上下文
+        - generic [ref=e324]:
+          - generic [ref=e325]: URL
+          - strong [ref=e326]: "--"
+        - generic [ref=e327]:
+          - generic [ref=e328]: 线索
+          - strong [ref=e329]: "--"
+        - generic [ref=e330]:
+          - generic [ref=e331]: 视图
+          - strong [ref=e332]: 内部视图
+      - generic [ref=e333]:
+        - generic [ref=e335]:
+          - generic [ref=e336]: 建议动作队列
+          - generic [ref=e337]: 下一步推荐
+        - generic [ref=e338]:
+          - article [ref=e339]:
+            - strong [ref=e340]: Run first audit
+            - paragraph [ref=e341]: Start with a domain to unlock reports, proposals, and compare.
+          - article [ref=e342]:
+            - strong [ref=e343]: Check environment
+            - paragraph [ref=e344]: Use Doctor/Auth before client demos to avoid avoidable interruptions.
+      - generic [ref=e345]:
+        - generic [ref=e347]:
+          - generic [ref=e348]: 最近产物
+          - generic [ref=e349]: 可直接分享的文件
+        - generic [ref=e350]:
+          - link "REPORT example.com-monthly-2026-03-20.md 2026-03-20 17:02" [ref=e351] [cursor=pointer]:
+            - /url: /downloads/reports/example.com-monthly-2026-03-20.md
+            - strong [ref=e352]: REPORT
+            - generic [ref=e353]: example.com-monthly-2026-03-20.md
+            - generic [ref=e354]: 2026-03-20 17:02
+          - link "PROPOSAL example.com-proposal-2026-03-20.md 2026-03-20 17:02" [ref=e355] [cursor=pointer]:
+            - /url: /downloads/proposals/example.com-proposal-2026-03-20.md
+            - strong [ref=e356]: PROPOSAL
+            - generic [ref=e357]: example.com-proposal-2026-03-20.md
+            - generic [ref=e358]: 2026-03-20 17:02
+      - generic [ref=e359]:
+        - generic [ref=e361]:
+          - generic [ref=e362]: 运行日志
+          - generic [ref=e363]: 最近事件
+        - generic [ref=e365]: 暂无事件。可先做环境诊断或发起新审计。

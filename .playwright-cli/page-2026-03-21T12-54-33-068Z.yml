@@ -1,0 +1,112 @@
+- generic [ref=e637]:
+  - banner [ref=e638]:
+    - generic [ref=e639]:
+      - generic [ref=e640]: GEO 一体化工作台
+      - generic [ref=e641]: 单页完成审计、报告、线索、提案与对比复盘
+    - generic [ref=e642]:
+      - generic [ref=e643]:
+        - text: 当前时间
+        - strong [ref=e644]: 2026-03-21 20:54
+      - generic [ref=e645]:
+        - text: 当前 URL
+        - strong [ref=e646]: "--"
+      - generic [ref=e647]: 需要配置
+      - button "切换到客户视图" [ref=e649] [cursor=pointer]
+  - generic [ref=e650]:
+    - complementary [ref=e651]:
+      - generic [ref=e652]:
+        - generic [ref=e653]: 导航
+        - generic [ref=e654]: 工作台地图
+      - generic [ref=e655]:
+        - button "工作区" [ref=e657] [cursor=pointer]
+        - button "审计" [ref=e659] [cursor=pointer]
+        - button "报告" [ref=e661] [cursor=pointer]
+        - button "线索" [ref=e663] [cursor=pointer]
+        - button "提案" [ref=e665] [cursor=pointer]
+        - button "对比" [ref=e667] [cursor=pointer]
+      - generic [ref=e668]:
+        - generic [ref=e669]: 环境状态
+        - generic [ref=e670]:
+          - generic [ref=e671]:
+            - generic [ref=e672]: Codex CLI
+            - strong [ref=e673]: 已安装
+          - generic [ref=e674]:
+            - generic [ref=e675]: 认证状态
+            - strong [ref=e676]: 需要登录
+          - generic [ref=e677]:
+            - generic [ref=e678]: 版本
+            - strong [ref=e679]: codex-cli 0.116.0
+    - main [ref=e680]:
+      - generic [ref=e682]:
+        - generic [ref=e683]: 对比模块
+        - generic [ref=e684]: 基于两次审计快照衡量阶段变化
+      - generic [ref=e685]:
+        - article [ref=e686]:
+          - generic [ref=e688]:
+            - generic [ref=e689]: 快照选择
+            - generic [ref=e690]: 选择基线与当前审计
+          - generic [ref=e691]:
+            - generic [ref=e692]:
+              - generic [ref=e693]: 基线审计
+              - combobox "基线审计" [ref=e694] [cursor=pointer]:
+                - option "请选择基线快照" [selected]
+            - generic [ref=e695]:
+              - generic [ref=e696]: 当前审计
+              - combobox "当前审计" [ref=e697] [cursor=pointer]:
+                - option "请选择当前快照" [selected]
+            - button "生成对比报告" [ref=e698] [cursor=pointer]
+        - article [ref=e699]:
+          - generic [ref=e701]:
+            - generic [ref=e702]: 分数变化
+            - generic [ref=e703]: 维度级增减情况
+          - generic [ref=e704]: 请选择两次审计快照后再生成对比结果。
+        - article [ref=e705]:
+          - generic [ref=e706]:
+            - generic [ref=e707]:
+              - generic [ref=e708]: 趋势摘要
+              - generic [ref=e709]: 月度进展草稿
+            - button "复制 Markdown" [ref=e710] [cursor=pointer]
+          - generic [ref=e711]: 请先生成对比内容后查看。
+    - complementary [ref=e712]:
+      - generic [ref=e713]:
+        - generic [ref=e714]: 当前上下文
+        - generic [ref=e715]:
+          - generic [ref=e716]: URL
+          - strong [ref=e717]: "--"
+        - generic [ref=e718]:
+          - generic [ref=e719]: 线索
+          - strong [ref=e720]: "--"
+        - generic [ref=e721]:
+          - generic [ref=e722]: 视图
+          - strong [ref=e723]: 内部视图
+      - generic [ref=e724]:
+        - generic [ref=e726]:
+          - generic [ref=e727]: 建议动作队列
+          - generic [ref=e728]: 下一步推荐
+        - generic [ref=e729]:
+          - article [ref=e730]:
+            - strong [ref=e731]: Run first audit
+            - paragraph [ref=e732]: Start with a domain to unlock reports, proposals, and compare.
+          - article [ref=e733]:
+            - strong [ref=e734]: Check environment
+            - paragraph [ref=e735]: Use Doctor/Auth before client demos to avoid avoidable interruptions.
+      - generic [ref=e736]:
+        - generic [ref=e738]:
+          - generic [ref=e739]: 最近产物
+          - generic [ref=e740]: 可直接分享的文件
+        - generic [ref=e741]:
+          - link "REPORT example.com-monthly-2026-03-20.md 2026-03-20 17:02" [ref=e742] [cursor=pointer]:
+            - /url: /downloads/reports/example.com-monthly-2026-03-20.md
+            - strong [ref=e743]: REPORT
+            - generic [ref=e744]: example.com-monthly-2026-03-20.md
+            - generic [ref=e745]: 2026-03-20 17:02
+          - link "PROPOSAL example.com-proposal-2026-03-20.md 2026-03-20 17:02" [ref=e746] [cursor=pointer]:
+            - /url: /downloads/proposals/example.com-proposal-2026-03-20.md
+            - strong [ref=e747]: PROPOSAL
+            - generic [ref=e748]: example.com-proposal-2026-03-20.md
+            - generic [ref=e749]: 2026-03-20 17:02
+      - generic [ref=e750]:
+        - generic [ref=e752]:
+          - generic [ref=e753]: 运行日志
+          - generic [ref=e754]: 最近事件
+        - generic [ref=e756]: 暂无事件。可先做环境诊断或发起新审计。

@@ -391,6 +391,7 @@ def env_snapshot() -> dict[str, Any]:
         "message": status.message,
         "check_command": status.check_command,
         "ready": status.installed and status.logged_in,
+        "audit_ready": True,
     }
 
 
@@ -516,6 +517,14 @@ def run_doctor():
     env = env_snapshot()
     if env["ready"]:
         add_log(f"{L('环境就绪，Codex 已登录：', 'Environment ready, Codex logged in: ')}{env['version'] or L('已检测到', 'detected')}.", "success")
+    elif env["installed"]:
+        add_log(
+            L(
+                "已检测到 Codex CLI，但登录状态未确认。请先在终端执行 `codex login` 完成授权；Web 快速审计仍可继续。",
+                "Codex CLI was detected, but login could not be confirmed. Run `codex login` in a terminal to authorize it; web audits can still continue.",
+            ),
+            "warning",
+        )
     else:
         add_log(localize_env_message(env["message"]), "warning")
     return render_shell()
@@ -527,7 +536,13 @@ def run_auth_check():
     if env["logged_in"]:
         add_log(L("登录状态正常，可以发起新审计。", "Authentication confirmed. You can launch a fresh audit."), "success")
     else:
-        add_log(L("尚未登录。请先执行 `codex login` 再开始审计。", "Authentication missing. Run `codex login` before starting an audit."), "danger")
+        add_log(
+            L(
+                "尚未确认 Codex 登录状态。请在终端执行 `codex login`，完成后回到这里点一次“检查登录”。Web 快速审计也可以先继续。",
+                "Codex login is not confirmed. Run `codex login` in a terminal, then come back and click Check Auth. Web audits can also continue first.",
+            ),
+            "warning",
+        )
     return render_shell()
 
 
@@ -542,10 +557,14 @@ def launch_audit():
         return render_shell()
 
     env = env_snapshot()
-    if not env["ready"]:
-        add_log(L("审计已阻断：环境检查未通过。请先执行环境诊断和登录检查。", "Audit blocked: environment check failed. Use Doctor/Auth first."), "danger")
-        _session_set("active_tab", "workspace")
-        return render_shell()
+    if not env["logged_in"]:
+        add_log(
+            L(
+                "未确认 Codex 登录状态，已继续执行本地快速审计。",
+                "Codex login is not confirmed; continuing with the local web audit.",
+            ),
+            "warning",
+        )
 
     audit = run_audit(url)
     files = save_audit_artifacts(audit, AUDITS_DIR)

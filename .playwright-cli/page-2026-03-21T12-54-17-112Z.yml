@@ -1,0 +1,132 @@
+- generic [ref=e366]:
+  - banner [ref=e367]:
+    - generic [ref=e368]:
+      - generic [ref=e369]: GEO 一体化工作台
+      - generic [ref=e370]: 单页完成审计、报告、线索、提案与对比复盘
+    - generic [ref=e371]:
+      - generic [ref=e372]:
+        - text: 当前时间
+        - strong [ref=e373]: 2026-03-21 20:54
+      - generic [ref=e374]:
+        - text: 当前 URL
+        - strong [ref=e375]: "--"
+      - generic [ref=e376]: 需要配置
+      - button "切换到客户视图" [ref=e378] [cursor=pointer]
+  - generic [ref=e379]:
+    - complementary [ref=e380]:
+      - generic [ref=e381]:
+        - generic [ref=e382]: 导航
+        - generic [ref=e383]: 工作台地图
+      - generic [ref=e384]:
+        - button "工作区" [ref=e386] [cursor=pointer]
+        - button "审计" [ref=e388] [cursor=pointer]
+        - button "报告" [ref=e390] [cursor=pointer]
+        - button "线索" [ref=e392] [cursor=pointer]
+        - button "提案" [ref=e394] [cursor=pointer]
+        - button "对比" [ref=e396] [cursor=pointer]
+      - generic [ref=e397]:
+        - generic [ref=e398]: 环境状态
+        - generic [ref=e399]:
+          - generic [ref=e400]:
+            - generic [ref=e401]: Codex CLI
+            - strong [ref=e402]: 已安装
+          - generic [ref=e403]:
+            - generic [ref=e404]: 认证状态
+            - strong [ref=e405]: 需要登录
+          - generic [ref=e406]:
+            - generic [ref=e407]: 版本
+            - strong [ref=e408]: codex-cli 0.116.0
+    - main [ref=e409]:
+      - generic [ref=e411]:
+        - generic [ref=e412]: 线索模块
+        - generic [ref=e413]: 把审计结果直接接入线索跟进流程
+      - generic [ref=e414]:
+        - article [ref=e415]:
+          - generic [ref=e417]:
+            - generic [ref=e418]: 线索池
+            - generic [ref=e419]: 全部线索记录
+          - table [ref=e421]:
+            - rowgroup [ref=e422]:
+              - row "ID 公司 状态 GEO 月度价值 更新时间" [ref=e423]:
+                - columnheader "ID" [ref=e424]
+                - columnheader "公司" [ref=e425]
+                - columnheader "状态" [ref=e426]
+                - columnheader "GEO" [ref=e427]
+                - columnheader "月度价值" [ref=e428]
+                - columnheader "更新时间" [ref=e429]
+                - columnheader [ref=e430]
+            - rowgroup [ref=e431]:
+              - row "PRO-001 Test Example test-example.com 待跟进 0/100 EUR 1 000 2026-03-20 打开" [ref=e432]:
+                - cell "PRO-001" [ref=e433]
+                - cell "Test Example test-example.com" [ref=e434]:
+                  - strong [ref=e435]: Test Example
+                  - generic [ref=e436]: test-example.com
+                - cell "待跟进" [ref=e437]:
+                  - generic [ref=e438]: 待跟进
+                - cell "0/100" [ref=e439]:
+                  - generic [ref=e440]: 0/100
+                - cell "EUR 1 000" [ref=e441]
+                - cell "2026-03-20" [ref=e442]
+                - cell "打开" [ref=e443]:
+                  - button "打开" [ref=e445] [cursor=pointer]
+              - row "PRO-002 Example example.com 待跟进 0/100 EUR 5 000 2026-03-20 打开" [ref=e446]:
+                - cell "PRO-002" [ref=e447]
+                - cell "Example example.com" [ref=e448]:
+                  - strong [ref=e449]: Example
+                  - generic [ref=e450]: example.com
+                - cell "待跟进" [ref=e451]:
+                  - generic [ref=e452]: 待跟进
+                - cell "0/100" [ref=e453]:
+                  - generic [ref=e454]: 0/100
+                - cell "EUR 5 000" [ref=e455]
+                - cell "2026-03-20" [ref=e456]
+                - cell "打开" [ref=e457]:
+                  - button "打开" [ref=e459] [cursor=pointer]
+        - article [ref=e460]:
+          - generic [ref=e462]:
+            - generic [ref=e463]: 线索详情
+            - generic [ref=e464]: 当前选中记录
+          - generic [ref=e465]: 请在左侧表格选择一个线索，查看详细信息。
+    - complementary [ref=e466]:
+      - generic [ref=e467]:
+        - generic [ref=e468]: 当前上下文
+        - generic [ref=e469]:
+          - generic [ref=e470]: URL
+          - strong [ref=e471]: "--"
+        - generic [ref=e472]:
+          - generic [ref=e473]: 线索
+          - strong [ref=e474]: "--"
+        - generic [ref=e475]:
+          - generic [ref=e476]: 视图
+          - strong [ref=e477]: 内部视图
+      - generic [ref=e478]:
+        - generic [ref=e480]:
+          - generic [ref=e481]: 建议动作队列
+          - generic [ref=e482]: 下一步推荐
+        - generic [ref=e483]:
+          - article [ref=e484]:
+            - strong [ref=e485]: Run first audit
+            - paragraph [ref=e486]: Start with a domain to unlock reports, proposals, and compare.
+          - article [ref=e487]:
+            - strong [ref=e488]: Check environment
+            - paragraph [ref=e489]: Use Doctor/Auth before client demos to avoid avoidable interruptions.
+      - generic [ref=e490]:
+        - generic [ref=e492]:
+          - generic [ref=e493]: 最近产物
+          - generic [ref=e494]: 可直接分享的文件
+        - generic [ref=e495]:
+          - link "REPORT example.com-monthly-2026-03-20.md 2026-03-20 17:02" [ref=e496] [cursor=pointer]:
+            - /url: /downloads/reports/example.com-monthly-2026-03-20.md
+            - strong [ref=e497]: REPORT
+            - generic [ref=e498]: example.com-monthly-2026-03-20.md
+            - generic [ref=e499]: 2026-03-20 17:02
+          - link "PROPOSAL example.com-proposal-2026-03-20.md 2026-03-20 17:02" [ref=e500] [cursor=pointer]:
+            - /url: /downloads/proposals/example.com-proposal-2026-03-20.md
+            - strong [ref=e501]: PROPOSAL
+            - generic [ref=e502]: example.com-proposal-2026-03-20.md
+            - generic [ref=e503]: 2026-03-20 17:02
+      - generic [ref=e504]:
+        - generic [ref=e506]:
+          - generic [ref=e507]: 运行日志
+          - generic [ref=e508]: 最近事件
+        - generic [ref=e510]: 暂无事件。可先做环境诊断或发起新审计。

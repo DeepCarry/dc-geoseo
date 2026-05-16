@@ -193,18 +193,20 @@ def build_styles():
     styles.add(ParagraphStyle(
         name='ReportTitle',
         fontName='Helvetica-Bold',
-        fontSize=28,
+        fontSize=30,
+        leading=34,
         textColor=PRIMARY,
-        spaceAfter=6,
+        spaceAfter=10,
         alignment=TA_LEFT,
     ))
 
     styles.add(ParagraphStyle(
         name='ReportSubtitle',
         fontName='Helvetica',
-        fontSize=14,
+        fontSize=15,
+        leading=21,
         textColor=TEXT_SECONDARY,
-        spaceAfter=20,
+        spaceAfter=24,
         alignment=TA_LEFT,
     ))
 
@@ -402,19 +404,16 @@ def generate_report(data, output_path="GEO-REPORT.pdf"):
     # ============================================================
     # COVER PAGE
     # ============================================================
-    elements.append(Spacer(1, 100))
-
-    # Title
-    elements.append(Paragraph("GEO Analysis Report", styles['ReportTitle']))
-    elements.append(Spacer(1, 8))
-
-    # Subtitle
-    elements.append(Paragraph(
-        f"Generative Engine Optimization Audit for <b>{brand_name}</b>",
-        styles['ReportSubtitle']
-    ))
-
-    elements.append(HRFlowable(width="100%", thickness=2, color=ACCENT, spaceAfter=20))
+    cover_header = [
+        Spacer(1, 92),
+        Paragraph("GEO Analysis Report", styles['ReportTitle']),
+        Paragraph(
+            f"Generative Engine Optimization Audit for <b>{brand_name}</b>",
+            styles['ReportSubtitle']
+        ),
+        HRFlowable(width="100%", thickness=2, color=ACCENT, spaceAfter=24),
+    ]
+    elements.append(KeepTogether(cover_header))
 
     # Key details table
     details_data = [
@@ -430,13 +429,13 @@ def generate_report(data, output_path="GEO-REPORT.pdf"):
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('TEXTCOLOR', (0, 0), (0, -1), ACCENT),
         ('TEXTCOLOR', (1, 0), (1, -1), TEXT_PRIMARY),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
-        ('TOPPADDING', (0, 0), (-1, -1), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+        ('TOPPADDING', (0, 0), (-1, -1), 12),
         ('LINEBELOW', (0, 0), (-1, -2), 0.5, lightgrey),
     ]))
     elements.append(details_table)
 
-    elements.append(Spacer(1, 30))
+    elements.append(Spacer(1, 36))
 
     # Score gauge
     gauge = create_score_gauge(geo_score, 200, 200)

@@ -1,0 +1,119 @@
+- generic [ref=e511]:
+  - banner [ref=e512]:
+    - generic [ref=e513]:
+      - generic [ref=e514]: GEO 一体化工作台
+      - generic [ref=e515]: 单页完成审计、报告、线索、提案与对比复盘
+    - generic [ref=e516]:
+      - generic [ref=e517]:
+        - text: 当前时间
+        - strong [ref=e518]: 2026-03-21 20:54
+      - generic [ref=e519]:
+        - text: 当前 URL
+        - strong [ref=e520]: "--"
+      - generic [ref=e521]: 需要配置
+      - button "切换到客户视图" [ref=e523] [cursor=pointer]
+  - generic [ref=e524]:
+    - complementary [ref=e525]:
+      - generic [ref=e526]:
+        - generic [ref=e527]: 导航
+        - generic [ref=e528]: 工作台地图
+      - generic [ref=e529]:
+        - button "工作区" [ref=e531] [cursor=pointer]
+        - button "审计" [ref=e533] [cursor=pointer]
+        - button "报告" [ref=e535] [cursor=pointer]
+        - button "线索" [ref=e537] [cursor=pointer]
+        - button "提案" [ref=e539] [cursor=pointer]
+        - button "对比" [ref=e541] [cursor=pointer]
+      - generic [ref=e542]:
+        - generic [ref=e543]: 环境状态
+        - generic [ref=e544]:
+          - generic [ref=e545]:
+            - generic [ref=e546]: Codex CLI
+            - strong [ref=e547]: 已安装
+          - generic [ref=e548]:
+            - generic [ref=e549]: 认证状态
+            - strong [ref=e550]: 需要登录
+          - generic [ref=e551]:
+            - generic [ref=e552]: 版本
+            - strong [ref=e553]: codex-cli 0.116.0
+    - main [ref=e554]:
+      - generic [ref=e556]:
+        - generic [ref=e557]: 提案模块
+        - generic [ref=e558]: 将当前审计或已选线索转为客户提案
+      - generic [ref=e559]:
+        - article [ref=e560]:
+          - generic [ref=e562]:
+            - generic [ref=e563]: 参数设置
+            - generic [ref=e564]: 选择线索并设定商务信息
+          - generic [ref=e565]:
+            - generic [ref=e566]:
+              - generic [ref=e567]: 当前线索
+              - textbox "当前线索" [ref=e568]: 基于当前审计的临时提案
+            - generic [ref=e569]:
+              - generic [ref=e570]: 月度价值
+              - spinbutton "月度价值" [ref=e571]: "5000"
+            - button "生成提案" [ref=e572] [cursor=pointer]
+        - article [ref=e573]:
+          - generic [ref=e574]:
+            - generic [ref=e575]:
+              - generic [ref=e576]: 提案预览
+              - generic [ref=e577]: Markdown 草稿
+            - button "复制 Markdown" [ref=e578] [cursor=pointer]
+          - generic [ref=e579]: 请先生成提案后再查看预览。
+        - article [ref=e580]:
+          - generic [ref=e582]:
+            - generic [ref=e583]: 商务建议
+            - generic [ref=e584]: 建议交付节奏
+          - generic [ref=e585]:
+            - generic [ref=e586]:
+              - strong [ref=e587]: 第 1 个月
+              - text: 修复 crawler 可访问性、结构化数据与 llms.txt 基础能力。
+            - generic [ref=e588]:
+              - strong [ref=e589]: 第 2-3 个月
+              - text: 重写可引用内容块，提升重点页面的 E-E-A-T 信号。
+            - generic [ref=e590]:
+              - strong [ref=e591]: 第 4-6 个月
+              - text: 增强品牌权威资产、原创证据与平台适配表现。
+    - complementary [ref=e592]:
+      - generic [ref=e593]:
+        - generic [ref=e594]: 当前上下文
+        - generic [ref=e595]:
+          - generic [ref=e596]: URL
+          - strong [ref=e597]: "--"
+        - generic [ref=e598]:
+          - generic [ref=e599]: 线索
+          - strong [ref=e600]: "--"
+        - generic [ref=e601]:
+          - generic [ref=e602]: 视图
+          - strong [ref=e603]: 内部视图
+      - generic [ref=e604]:
+        - generic [ref=e606]:
+          - generic [ref=e607]: 建议动作队列
+          - generic [ref=e608]: 下一步推荐
+        - generic [ref=e609]:
+          - article [ref=e610]:
+            - strong [ref=e611]: Run first audit
+            - paragraph [ref=e612]: Start with a domain to unlock reports, proposals, and compare.
+          - article [ref=e613]:
+            - strong [ref=e614]: Check environment
+            - paragraph [ref=e615]: Use Doctor/Auth before client demos to avoid avoidable interruptions.
+      - generic [ref=e616]:
+        - generic [ref=e618]:
+          - generic [ref=e619]: 最近产物
+          - generic [ref=e620]: 可直接分享的文件
+        - generic [ref=e621]:
+          - link "REPORT example.com-monthly-2026-03-20.md 2026-03-20 17:02" [ref=e622] [cursor=pointer]:
+            - /url: /downloads/reports/example.com-monthly-2026-03-20.md
+            - strong [ref=e623]: REPORT
+            - generic [ref=e624]: example.com-monthly-2026-03-20.md
+            - generic [ref=e625]: 2026-03-20 17:02
+          - link "PROPOSAL example.com-proposal-2026-03-20.md 2026-03-20 17:02" [ref=e626] [cursor=pointer]:
+            - /url: /downloads/proposals/example.com-proposal-2026-03-20.md
+            - strong [ref=e627]: PROPOSAL
+            - generic [ref=e628]: example.com-proposal-2026-03-20.md
+            - generic [ref=e629]: 2026-03-20 17:02
+      - generic [ref=e630]:
+        - generic [ref=e632]:
+          - generic [ref=e633]: 运行日志
+          - generic [ref=e634]: 最近事件
+        - generic [ref=e636]: 暂无事件。可先做环境诊断或发起新审计。

@@ -1,0 +1,86 @@
+- generic [ref=e155]:
+  - banner [ref=e156]:
+    - generic [ref=e157]:
+      - generic [ref=e158]: GEO 一体化工作台
+      - generic [ref=e159]: 单页完成审计、报告、线索、提案与对比复盘
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - text: 当前时间
+        - strong [ref=e162]: 2026-03-21 20:52
+      - generic [ref=e163]:
+        - text: 当前 URL
+        - strong [ref=e164]: "--"
+      - generic [ref=e165]: 需要配置
+      - button "切换到客户视图" [ref=e167] [cursor=pointer]
+  - generic [ref=e168]:
+    - complementary [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e171]: 导航
+        - generic [ref=e172]: 工作台地图
+      - generic [ref=e173]:
+        - button "工作区" [ref=e175] [cursor=pointer]
+        - button "审计" [ref=e177] [cursor=pointer]
+        - button "报告" [ref=e179] [cursor=pointer]
+        - button "线索" [ref=e181] [cursor=pointer]
+        - button "提案" [ref=e183] [cursor=pointer]
+        - button "对比" [ref=e185] [cursor=pointer]
+      - generic [ref=e186]:
+        - generic [ref=e187]: 环境状态
+        - generic [ref=e188]:
+          - generic [ref=e189]:
+            - generic [ref=e190]: Codex CLI
+            - strong [ref=e191]: 已安装
+          - generic [ref=e192]:
+            - generic [ref=e193]: 认证状态
+            - strong [ref=e194]: 需要登录
+          - generic [ref=e195]:
+            - generic [ref=e196]: 版本
+            - strong [ref=e197]: codex-cli 0.116.0
+    - main [ref=e198]:
+      - generic [ref=e200]:
+        - generic [ref=e201]: 审计模块
+        - generic [ref=e202]: 总览评分、平台表现与证据明细
+      - generic [ref=e203]: 尚未选择审计结果。请先在工作区发起审计或加载历史快照。
+    - complementary [ref=e204]:
+      - generic [ref=e205]:
+        - generic [ref=e206]: 当前上下文
+        - generic [ref=e207]:
+          - generic [ref=e208]: URL
+          - strong [ref=e209]: "--"
+        - generic [ref=e210]:
+          - generic [ref=e211]: 线索
+          - strong [ref=e212]: "--"
+        - generic [ref=e213]:
+          - generic [ref=e214]: 视图
+          - strong [ref=e215]: 内部视图
+      - generic [ref=e216]:
+        - generic [ref=e218]:
+          - generic [ref=e219]: 建议动作队列
+          - generic [ref=e220]: 下一步推荐
+        - generic [ref=e221]:
+          - article [ref=e222]:
+            - strong [ref=e223]: Run first audit
+            - paragraph [ref=e224]: Start with a domain to unlock reports, proposals, and compare.
+          - article [ref=e225]:
+            - strong [ref=e226]: Check environment
+            - paragraph [ref=e227]: Use Doctor/Auth before client demos to avoid avoidable interruptions.
+      - generic [ref=e228]:
+        - generic [ref=e230]:
+          - generic [ref=e231]: 最近产物
+          - generic [ref=e232]: 可直接分享的文件
+        - generic [ref=e233]:
+          - link "REPORT example.com-monthly-2026-03-20.md 2026-03-20 17:02" [ref=e234] [cursor=pointer]:
+            - /url: /downloads/reports/example.com-monthly-2026-03-20.md
+            - strong [ref=e235]: REPORT
+            - generic [ref=e236]: example.com-monthly-2026-03-20.md
+            - generic [ref=e237]: 2026-03-20 17:02
+          - link "PROPOSAL example.com-proposal-2026-03-20.md 2026-03-20 17:02" [ref=e238] [cursor=pointer]:
+            - /url: /downloads/proposals/example.com-proposal-2026-03-20.md
+            - strong [ref=e239]: PROPOSAL
+            - generic [ref=e240]: example.com-proposal-2026-03-20.md
+            - generic [ref=e241]: 2026-03-20 17:02
+      - generic [ref=e242]:
+        - generic [ref=e244]:
+          - generic [ref=e245]: 运行日志
+          - generic [ref=e246]: 最近事件
+        - generic [ref=e248]: 暂无事件。可先做环境诊断或发起新审计。
