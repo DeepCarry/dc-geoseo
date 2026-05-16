@@ -13,6 +13,57 @@
 <body class="lang-{{ current_lang | default('zh') }}">
   {% block content %}{% endblock %}
   <script>
+    (function () {
+      function closestHxPost(element) {
+        return element && element.closest ? element.closest('[hx-post]') : null;
+      }
+
+      function targetFor(trigger) {
+        var selector = trigger.getAttribute('hx-target') || '#workspace-shell';
+        return document.querySelector(selector);
+      }
+
+      function formDataFor(trigger) {
+        var form = trigger.matches('form') ? trigger : trigger.closest('form');
+        return form ? new FormData(form) : new FormData();
+      }
+
+      function requestSwap(trigger) {
+        if (window.htmx) return false;
+        var url = trigger.getAttribute('hx-post');
+        var target = targetFor(trigger);
+        if (!url || !target) return false;
+        document.body.classList.add('is-busy');
+        fetch(url, {
+          method: 'POST',
+          body: formDataFor(trigger),
+          credentials: 'same-origin'
+        }).then(function (response) {
+          if (!response.ok) throw new Error('Request failed: ' + response.status);
+          return response.text();
+        }).then(function (html) {
+          target.outerHTML = html;
+        }).catch(function (error) {
+          console.error(error);
+        }).finally(function () {
+          document.body.classList.remove('is-busy');
+        });
+        return true;
+      }
+
+      document.body.addEventListener('submit', function (event) {
+        var trigger = closestHxPost(event.target);
+        if (!trigger) return;
+        if (requestSwap(trigger)) event.preventDefault();
+      });
+
+      document.body.addEventListener('click', function (event) {
+        var trigger = closestHxPost(event.target);
+        if (!trigger) return;
+        if (requestSwap(trigger)) event.preventDefault();
+      });
+    })();
+
     document.body.addEventListener('htmx:beforeRequest', function () {
       document.body.classList.add('is-busy');
     });
